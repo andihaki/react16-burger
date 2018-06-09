@@ -4,6 +4,13 @@ import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
+const INGREDIENT_PRICES = {
+    salad: 0.4,
+    bacon: 0.7,
+    cheese: 0.4,
+    meat: 1.3,
+}
+
 class BurgerBuilder extends Component {
     state = {
         ingredients: {
@@ -11,14 +18,74 @@ class BurgerBuilder extends Component {
             bacon: 0,
             cheese: 0,
             meat: 0,
+        },
+        totalPrice: 2.8,
+        purchasable: false,
+    }
+
+    updatePurchaseState(ingredients){
+        
+        // jadiin array dari tiap ingredients
+        const sum = Object.keys(ingredients)
+            .map(igKey => {
+                return ingredients[igKey];
+            })
+            .reduce((sum, el) => {
+                return sum + el;
+            }, 0);
+        this.setState({purchasable: sum > 0})
+    }
+
+    addIngredientHandler = (type) => {
+        const oldCount = this.state.ingredients[type]; // ambil total tiap ingredient, awalnya 0
+        const updateCounted = oldCount + 1;
+        const updateIngredients = {
+            ...this.state.ingredients
+        };
+        updateIngredients[type] = updateCounted; // ubah nilai jadi + 1
+        const priceAddition = INGREDIENT_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice + priceAddition;
+        this.setState({totalPrice: newPrice, ingredients: updateIngredients}); // update nilai dari state
+        this.updatePurchaseState(updateIngredients);
+    }
+
+    removeIngredientHandler = (type) => {
+        const oldCount = this.state.ingredients[type]; // ambil total tiap ingredient, awalnya 0
+        // supaya ga error pas < 0
+        if (oldCount <= 0){
+            return;
         }
+        const updateCounted = oldCount - 1;
+        const updateIngredients = {
+            ...this.state.ingredients
+        };
+        updateIngredients[type] = updateCounted; // ubah nilai jadi + 1
+        const priceDeduction = INGREDIENT_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice - priceDeduction;
+        this.setState({totalPrice: newPrice, ingredients: updateIngredients}); // update nilai dari state 
+        this.updatePurchaseState(updateIngredients);
     }
 
     render() {
+        // kalo ingredient = 0, maka disabled button
+        const disabledInfo  = {
+            ...this.state.ingredients
+        }
+        for (let key in disabledInfo){
+            disabledInfo[key] = disabledInfo[key] <= 0;
+        }
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients} />
-                <BuildControls />            
+                <BuildControls 
+                    ingredientAdded={this.addIngredientHandler}
+                    ingredientRemoved={this.removeIngredientHandler}
+                    disabled={disabledInfo}
+                    purchasable={this.state.purchasable}
+                    price={this.state.totalPrice}
+                />            
             </Aux>
         );
     }
