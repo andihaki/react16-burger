@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom'; // NavLink rada beda dengan Link, soalnya otomatis nambah class="active"
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom'; // NavLink rada beda dengan Link, soalnya otomatis nambah class="active"
 
 import './Blog.css';
 import Posts from './Posts/Posts';
 import NewPost from './NewPost/NewPost';
-import FullPost from './FullPost/FullPost';
 
 class Blog extends Component {    
     render () {        
@@ -14,14 +13,14 @@ class Blog extends Component {
                     <nav>
                         <ul>
                             <li><NavLink 
-                                    to="/" 
+                                    to="/posts/" 
                                     exact
                                     activeClassName="my-active" // di DOm bakal jadi: class="my-active"
                                     activeStyle={{
                                         color: "#fa923f",
                                         textDecoration: 'underline'
                                     }}
-                                    >Home</NavLink></li>
+                                    >Posts</NavLink></li>
                             <li><NavLink to={{
                                 pathname: "/new-post", // absolute path
                                 hash: "#submit",
@@ -32,9 +31,12 @@ class Blog extends Component {
                 </header>
                 {/* <Route path="/" exact render={() => <Posts />}/>
                 <Route path="/new-post" render={() => <h1>newpost</h1>}/> */}
-                <Route path="/" exact component={Posts} />
-                <Route path="/new-post" exact component={NewPost} />
-                <Route path="/:id" exact component={FullPost} /> {/* :id = dinamis, bisa diganti selain id */}
+                <Switch> {/*supaya stop lookup pas udah ketemu path new-post*/}
+                    <Route path="/new-post" component={NewPost} />
+                    <Route path="/posts" component={Posts} />
+                    <Redirect from="/" to="/posts" />
+                    {/* <Route path="/posts" component={Posts} /> */}
+                </Switch>
             </div>
         );
     }
