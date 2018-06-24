@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
 
 import Courses from './containers/Courses/Courses';
 import Users from './containers/Users/Users';
+import NoMatch from './components/NoMatch/NoMatch';
 
 class App extends Component {
   render () {
@@ -16,7 +18,25 @@ class App extends Component {
           <li>Load the "Course" component as a nested component of "Courses"</li>
           <li>Add a 404 error page and render it for any unknown routes</li>
           <li>Redirect requests to /all-courses to /courses (=> Your "Courses" page)</li>
-        </ol>
+        </ol>        
+        
+        <ul style={{ listStyle: 'none', margin: 'auto', padding: '0' }}>
+          <li style={{ margin: '10px', display: 'inline-block' }}><NavLink 
+              to="/Courses"              
+            >Courses</NavLink></li>
+          <li style={{ margin: '10px', display: 'inline-block' }}><NavLink
+              to="/Users"
+            >Users</NavLink></li>
+        </ul>
+      
+        <Switch>
+          {/* <Route path="/Courses/:id" component={Course}/> */}
+          <Route path="/Courses" component={Courses}/>
+          <Route path="/Users" component={Users}/>
+          <Redirect from="/all-courses" to="/Courses" />
+          <Route component={NoMatch} />
+        </Switch>
+        
       </div>
     );
   }
