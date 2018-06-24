@@ -25,7 +25,8 @@ class NewPost extends Component {
         axios.post('/posts/', data)
             .then(response => {
                 console.log(response);
-                this.setState({ submitted: true });
+                this.props.history.replace('/posts'); // .replace = back button not working, .push = back button worked
+                // this.setState({ submitted: true }); 
             })
     }
 
