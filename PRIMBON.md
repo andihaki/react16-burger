@@ -25,4 +25,5 @@
                     modules: true, 
                     localIdentName: "[name]_[local]_[hash:base64:5]"
 
-
+# REDUX advanced
+- Middleware = fungsi antara Action <> Reducers
