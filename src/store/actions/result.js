@@ -10,7 +10,8 @@ export const saveResult = res => {
 }
 
 export const storeResult = (res) => {
-    return dispatch => {
+    // bisa juga nerima paremeter:  (dispatch , getState)
+    return (dispatch) => {
         setTimeout(() => {
             dispatch(saveResult(res))
         }, 2000);

@@ -38,3 +38,27 @@
   di file.js
   import {increment} from './pathJsFile/actions.js';
   ga perlu lagi {type: actionType.INCREMENT}, jadinya increment
+- redux-thunk
+  supaya bisa jalain Action Creators secara Asyncronous
+- redux: reducer: utility function
+  nyederhanain reducer return function, tanpa perlu spread operator, soalnya udah di handle di file utility.js
+  utility.js:
+  ```
+  export const updateObject = (oldObject, updatedValues) => {
+    return {
+        ...oldObject,
+        ...updatedValues,
+    }
+  };
+  ```
+  reducer.js: BEFORE
+  ```
+  return {
+    ...state,
+    counter: state.counter + 1,
+  }            
+  ```
+  reducer.js: AFTER
+  ```
+  return updateObject(state, {counter: state.counter + 1,})
+  ```
