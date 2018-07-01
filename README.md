@@ -40,6 +40,7 @@
   ga perlu lagi {type: actionType.INCREMENT}, jadinya increment
 - redux-thunk
   supaya bisa jalain Action Creators secara Asyncronous
+  https://github.com/zalmoxisus/redux-devtools-extension#12-advanced-store-setup
 - redux: reducer: utility function
   nyederhanain reducer return function, tanpa perlu spread operator, soalnya udah di handle di file utility.js
   utility.js:
