@@ -87,7 +87,7 @@ class ContactData extends Component {
                         {value: 'cheapest', displayValue: 'Cheapest'},
                     ],
                 },
-                value: '',
+                value: 'fastest',
                 validation: {},
                 valid: true,                
             }
@@ -105,7 +105,7 @@ class ContactData extends Component {
             ingredients : this.props.ings,
             price: this.props.price,
             orderData: formData,            
-        };
+        };        
         this.props.onOrderBurger(order);
     }
 
