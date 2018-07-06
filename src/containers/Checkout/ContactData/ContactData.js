@@ -49,6 +49,7 @@ class ContactData extends Component {
                     required: true,
                     minLength: 5,
                     maxLength: 5,
+                    isNumeric: true,
                 },
                 valid: false,
                 touched: false,
@@ -74,7 +75,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 valid: false,
                 touched: false,
