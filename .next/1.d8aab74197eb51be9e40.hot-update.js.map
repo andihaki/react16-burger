@@ -1,0 +1,1 @@
+{"version":3,"file":"1.d8aab74197eb51be9e40.hot-update.js","sources":["webpack:///./node_modules/next/router.js"],"sourcesContent":["module.exports = require('./dist/lib/router')\n\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./node_modules/next/router.js\n// module id = ./node_modules/next/router.js\n// module chunks = 1 4"],"mappings":";;;;;AAAA;;;;;A","sourceRoot":""}
